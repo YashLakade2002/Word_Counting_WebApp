@@ -1,0 +1,54 @@
+{% extends 'partials/base.html' %}
+{% block title %}Home Page{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container-fluid mt-5">
+    <div class="row m-5 pt-3">
+        <div class="col-md-12">
+           <div class="col-md-12">
+            <div class="card my-3 shadow">
+                <div class="card-body m-5">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input class="btn btn-dark btn-block" type="submit" value="Post">
+                    </form>
+                </div>
+            </div>            
+           </div>
+
+           <div class="col-md-12 mt-5 text-center">
+            {% for post in posts %}
+                {% if user.id == post.author_id %}
+                    <div class="card shadow my-3">
+                        <div class="card-body">
+                            <div class="row m-3">
+                                <div class="col-md-12">
+                                    <a class="h3 text-dark" href="{% url 'post-detail' post.id %}"> {{ post.title }}</a>                            
+                                    <p class="text-justify my-3">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ post.content }} 
+                                        <div class="row dummy" style="border:none;">
+                                            <div class="col">
+                                                <span class=""> Total Words : <b>{{ post.words }}</b> </span> &nbsp; | &nbsp;
+                                                <span class=""> Total Character : <b>{{ post.charcnt }}</b> </span> &nbsp; | &nbsp;
+                                                <span class=""> Without Space : <b>{{ post.wspace }}</b> </span>
+                                            </div>                                
+                                        </div>
+                                        <span><a class="btn btn-dark mx-2 mt-3"
+                                            href="{% url 'post-edit' post.id %}">Edit</a></span>
+                                        <span><a class="btn btn-danger mt-3"
+                                            href="{% url 'post-delete' post.id %}">Delete</a></span>                                        
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div> 
+
+{% endblock %}

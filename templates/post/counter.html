@@ -1,0 +1,74 @@
+{% extends 'partials/base.html' %}
+{% block title %} Upload Text Page {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container-sm text-center">
+    <div class="row"> 
+        <div class="col-md-8 mt-5">
+            <form action="counter" method="POST"> 
+                {% csrf_token %}                
+              <div class="col-md-12">
+                <textarea class="form-control shadow-lg p-3 bg-body-tertiary rounded" placeholder="Paste you're text here to count word and character" 
+                  name="texttocount" id="text1" rows="11" style="background-color: white; border:2px; border-style: groove;">{{text}}</textarea> 
+              </div>
+              <br> 
+              <div class="form-group text-center">
+                <button type="submit" class="btn btn-outline-dark"> Count Words </button>
+              </div>
+            </form>
+        </div>
+
+        <div class="col-md-4 mt-5">
+            <div class="container">
+                {% if i %}
+                    <div class="container-sm">
+                        <div class="container-sm">
+                            <p class="homebar"> Words </p>
+                            <p class="homebar"> <b> {{word}} </b> </p>
+                        </div>
+                        
+                        <br>
+
+                        <div class="container-sm">
+                            <p class="homebar"> Characters </p>
+                            <p class="homebar"> <b> {{countwhite}} </b> </p>
+                        </div>
+
+                        <br>
+
+                        <div class="container-sm">
+                            <p class="homebar"> Without WhiteSpace </p>
+                            <p class="homebar"> <b> {{count}} </b> </p>
+                        </div>
+                    </div>   
+
+                {% else %}
+
+                <div class="container-sm">
+                    <div class="container-sm">
+                        <p class="homebar"> Words </p>
+                        <p class="homebar"> <b> 0 </b> </p>
+                    </div>
+                    
+                    <br>
+
+                    <div class="container-sm">
+                        <p class="homebar"> Character </p>
+                        <p class="homebar"> <b> 0 </b> </p>
+                    </div>
+                    
+                    <br>
+
+                    <div class="container-sm">
+                        <p class="homebar"> Without WhiteSpace </p>
+                        <p class="homebar"> <b> 0 </b> </p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

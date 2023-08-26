@@ -1,0 +1,30 @@
+{% extends 'partials/base.html' %}
+{% block title %} Post Detail Page {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid text-center">
+    <div class="row mt-5 pt-3">
+        <div class="col-md-10 offset-md-1">
+            <div class="card my-3 shadow p-5">
+                <div class="card-body">          
+                        <h3> {{ post.title }} </h3>                            
+                        <p class="text-justify my-3">
+                            {{ post.content }} 
+                            <div class="row dummy" style="border:none;">
+                                <div class="col">
+                                    <span> Total Words : <b>{{ post.words }}</b> </span> &nbsp; | &nbsp;
+                                    <span> Total Character : <b>{{ post.charcnt }}</b> </span> &nbsp; | &nbsp;
+                                    <span> Without Space : <b>{{ post.wspace }}</b> </span>
+                                </div>                                
+                            </div>
+                                <span><a class="btn btn-danger mt-3"
+                                    href="{% url 'post-delete' post.id %}">Delete</a></span>
+                                <span><a class="btn btn-dark mx-2 mt-3"
+                                    href="{% url 'post-edit' post.id %}">Edit</a></span>
+                        </p>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
